@@ -80,7 +80,7 @@
     }
 
     loadData();
-    setInterval(loadData, 5000); // update setiap 5 detik
+    setInterval(loadData, 50); // update setiap 5 mili detik
   </script>
 </body>
 </html>
