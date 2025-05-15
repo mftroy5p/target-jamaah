@@ -1,76 +1,86 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Target Jamaah Umrah</title>
   <style>
     body {
       margin: 0;
       padding: 0;
-      background: #001f3f;
+      background-color: #001f3f;
       color: #ffffff;
       font-family: 'Segoe UI', sans-serif;
       display: flex;
       flex-direction: column;
-      justify-content: center;
       align-items: center;
-      height: 100vh;
+      justify-content: center;
+      min-height: 100vh;
       text-align: center;
     }
 
     h1 {
-      font-size: 4rem;
-      margin-bottom: 0.5em;
+      font-size: 2.5rem;
+      margin-bottom: 0.5rem;
+      color: #66b3ff;
+    }
+
+    hr {
+      width: 80%;
+      margin: 10px auto 30px;
+      border: 1px solid #ccc;
     }
 
     .stat {
-      font-size: 2.5rem;
-      margin: 0.3em 0;
+      font-size: 2rem;
+      margin: 0.6em 0;
     }
 
     .highlight {
-      color: #00d4ff;
+      background-color: #00d4ff;
+      color: #001f3f;
+      padding: 0.2em 0.5em;
+      border-radius: 6px;
       font-weight: bold;
     }
 
     .footer {
-      position: absolute;
-      bottom: 20px;
-      font-size: 1.2rem;
+      margin-top: 3rem;
+      font-size: 1.1rem;
       color: #cccccc;
     }
   </style>
 </head>
 <body>
   <h1>🎯 Target Jamaah Umrah</h1>
-  <div class="stat">Target: <span class="highlight" id="target">0</span> Jamaah</div>
-  <div class="stat">Sudah Daftar: <span class="highlight" id="terdaftar">0</span></div>
-  <div class="stat">Sisa: <span class="highlight" id="sisa">0</span> Jamaah Lagi</div>
-
-  <div class="footer">💫 Bismillah, semoga dimudahkan dan dilancarkan semua prosesnya 💫</div>
+  <hr />
+  <div class="stat">Target: <span class="highlight" id="target">1000</span> Jamaah</div>
+  <div class="stat">Sudah Daftar: <span class="highlight" id="terdaftar">20</span></div>
+  <div class="stat">Sisa: <span class="highlight" id="sisa">980</span> Jamaah Lagi</div>
+  <div class="footer">🕊️ Bismillah, semoga dimudahkan dan dilancarkan semua prosesnya 🕊️</div>
 
   <script>
     async function loadData() {
       try {
         const response = await fetch("https://docs.google.com/spreadsheets/d/e/2PACX-1vTfKna9v3cT_XHOrwF-sPcIhb75LEjRKywbnaSAjb1LMBxNX394RYEkfQBl7hZ3o9MvABfZ1-VElQ6L/pub?output=csv");
-        const text = await response.text();
-        const rows = text.trim().split('\n');
-        const data = rows[1].split(',');
+        const csv = await response.text();
+        const rows = csv.split("\n");
+        const data = rows[1].split(",");
+        
         const target = parseInt(data[0]);
         const terdaftar = parseInt(data[1]);
         const sisa = target - terdaftar;
 
-        document.getElementById('target').textContent = target;
-        document.getElementById('terdaftar').textContent = terdaftar;
-        document.getElementById('sisa').textContent = sisa;
+        document.getElementById("target").textContent = target;
+        document.getElementById("terdaftar").textContent = terdaftar;
+        document.getElementById("sisa").textContent = sisa;
       } catch (error) {
-        console.error('Gagal ambil data:', error);
+        console.error("Gagal memuat data:", error);
       }
     }
 
     loadData();
-    setInterval(loadData, 10000); // Update setiap 10 detik
+    setInterval(loadData, 5000); // update setiap 5 detik
   </script>
 </body>
 </html>
